@@ -1,4 +1,16 @@
 School::Application.routes.draw do
+
+  resources :categories, :users, :courses
+  
+  resources :users do
+    resources :schedules, except: [:edit, :update]
+  end
+
+  match 'categories/:id' => 'categories#show', constraints: { id: /[A-Z][a-z]{1}/ }
+
+  get '/students', to: 'users#index'
+
+  get '/resume/:id', to: 'users#show'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
